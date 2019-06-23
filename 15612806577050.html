@@ -106,6 +106,58 @@
  <div class="markdown-body">
 <h1>29. Divide Two Integers</h1>
 
+<p>Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.</p>
+
+<p>Return the quotient after dividing dividend by divisor.</p>
+
+<p>The integer division should truncate toward zero.</p>
+
+<p>Example 1:</p>
+
+<p>Input: dividend = 10, divisor = 3<br/>
+Output: 3<br/>
+Example 2:</p>
+
+<p>Input: dividend = 7, divisor = -3<br/>
+Output: -2<br/>
+Note:</p>
+
+<p>Both dividend and divisor will be 32-bit signed integers.<br/>
+The divisor will never be 0.<br/>
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>用减法计算除法<br/>
+优化点：指数扩大，类似快速幂思想</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">    public int divide(int dividend, int divisor) {
+        int sign = (dividend &gt;&gt;&gt; 31) ^ (divisor &gt;&gt;&gt; 31);
+        long a = Math.abs((long)dividend), b = Math.abs((long)divisor);
+        long res = sign &gt; 0 ? -helper(a, b) : helper(a, b);
+        if(res - 1 == Integer.MAX_VALUE) return Integer.MAX_VALUE;
+        return (int) res;
+    }
+
+    public long helper(long a, long b){
+        if(a &lt; b)
+            return 0;
+        long sum = 0, count = 1;
+        long oriB = b;
+        while(a &gt;= b){
+            a -= b;
+            sum += count;
+            b &lt;&lt;= 1;
+            count &lt;&lt;= 1;
+
+        }
+        return sum + helper(a, oriB);
+    }
+</code></pre>
 
 
 </div>

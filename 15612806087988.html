@@ -106,6 +106,40 @@
  <div class="markdown-body">
 <h1>204. Count Primes</h1>
 
+<p>Count the number of prime numbers less than a non-negative number, n.</p>
+
+<p>Example:</p>
+
+<p>Input: 10<br/>
+Output: 4<br/>
+Explanation: There are 4 prime numbers less than 10, they are 2, 3, 5, 7.</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>筛选法</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">    public int countPrimes(int n) {
+        if(n &lt; 2) return 0;
+        int[] notPrimes = new int[n];
+        for(int i = 2; i*i &lt; n; i++){
+            if(notPrimes[i] == 0){
+                for(int j = i * i; j &lt; n; j+=i){
+                    notPrimes[j] = 1;
+                }
+            }
+        }
+        int res = 0;
+        for(int i = 2; i &lt; n; i++)
+            if(notPrimes[i] == 0){
+                res++;
+            }
+        return res;
+    }
+</code></pre>
 
 
 </div>

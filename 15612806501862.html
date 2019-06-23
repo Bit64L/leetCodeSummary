@@ -106,6 +106,56 @@
  <div class="markdown-body">
 <h1>69. Sqrt(x)</h1>
 
+<p>Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.</p>
+
+<p>Return the quotient after dividing dividend by divisor.</p>
+
+<p>The integer division should truncate toward zero.</p>
+
+<p>Example 1:</p>
+
+<p>Input: dividend = 10, divisor = 3<br/>
+Output: 3<br/>
+Example 2:</p>
+
+<p>Input: dividend = 7, divisor = -3<br/>
+Output: -2<br/>
+Note:</p>
+
+<p>Both dividend and divisor will be 32-bit signed integers.<br/>
+The divisor will never be 0.<br/>
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>注意点<br/>
+1. lo &lt; hi, 如果要使得lo == hi所得结果不是答案，一定要使得初始val[hi] &gt; res<br/>
+2. lo = mid + 1, hi = mid</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>O(nlogn)<br/>
+O(1)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">    public int mySqrt(int x) {
+        if(x == 0 || x == 1) return x;
+        int lo = 1, hi = x;
+        while(lo &lt; hi){
+            int mid = (lo + hi) / 2;
+            if(mid == x/mid){
+                return mid;
+            }else if(mid &lt; x/mid){
+                lo = mid + 1;
+            }else{
+                hi = mid;
+            }
+        }
+
+        return hi - 1;
+    }
+</code></pre>
 
 
 </div>
