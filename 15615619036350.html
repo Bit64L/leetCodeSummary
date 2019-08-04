@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  LeetCode刷题笔记
+  234. Palindrome Linked List - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -145,47 +145,118 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>234. Palindrome Linked List</h1>
+
+<p>Given a singly linked list, determine if it is a palindrome.</p>
+
+<p>Example 1:</p>
+
+<p>Input: 1-&gt;2<br/>
+Output: false<br/>
+Example 2:</p>
+
+<p>Input: 1-&gt;2-&gt;2-&gt;1<br/>
+Output: true<br/>
+Follow up:<br/>
+Could you do it in O(n) time and O(1) space?</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<ol>
+<li>翻转链表: 用dummy node头插法，尝试一下不使用dummy node如何做</li>
+<li>如何定位链表的中间点</li>
+</ol>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>O(n) O(1)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if(head == null || head.next == null)
+            return true;
+        ListNode slow = head, fast = head.next;
+        while(fast.next != null &amp;&amp; fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        ListNode l1 = reverse(slow.next);
+        ListNode l2 = head;
+        slow.next = null;
+        while(l1 != null &amp;&amp; l2 != null){
+            if(l1.val != l2.val)
+                return false;
+            l1 = l1.next;
+            l2 = l2.next;
+            
+        }
+        return true;
+    }
+    
+    public ListNode reverse(ListNode head){
+        ListNode dummy = new ListNode(0);
+        while(head != null){
+            ListNode tmp = head.next;
+            head.next = dummy.next;
+            dummy.next = head;
+            head = tmp;
+        }
+        return dummy.next;
+    }
+}
+</code></pre>
 
 
-	
-		<div class="markdown-body">
-		<h1>LRU Cache</h1>
+</div>
 
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
 		
+	        <a href="15646781376296.html"  title="Previous Post: 15. 3Sum">&laquo; 15. 3Sum</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15612806577050.html" 
+	        title="Next Post: 29. Divide Two Integers">29. Divide Two Integers &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
 
-		</div>
-	
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
 
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
- 
-	
-
-  
-  
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15615619036350.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 
