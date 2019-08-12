@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  60. Permutation Sequence - LeetCode刷题笔记
+  253. Meeting Rooms II - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -200,8 +200,57 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>60. Permutation Sequence</h1>
+<h1>253. Meeting Rooms II</h1>
 
+<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+
+<p>Example 1:</p>
+
+<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
+Output: 2<br/>
+Example 2:</p>
+
+<p>Input: [[7,10],[2,4]]<br/>
+Output: 1</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>注意点：<br/>
+1. 对于容器，如何在循环中修改元素的值</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>Worst O(N2)<br/>
+Best O(N)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
+        if(intervals == null || intervals.length == 0)
+            return 0;
+        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
+            public int compare(int[] i1, int[] i2){
+                return i1[0] - i2[0];
+            }
+        });
+
+        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
+        for(int[] interval : intervals){
+            boolean isFound = false;
+            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
+            while(iterator.hasNext()){
+                Integer end = iterator.next();
+                if(interval[0] &gt;= end){
+                    iterator.set(interval[1]);
+                    isFound = true;
+                    break;
+                }
+            }
+            if(!isFound) ends.add(interval[1]);
+        }
+        return ends.size();
+    }
+</code></pre>
 
 
 </div>
@@ -213,15 +262,15 @@
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15612806069088.html"  title="Previous Post: 31. Next Permutation">&laquo; 31. Next Permutation</a>
+	        <a href="15655979933370.html"  title="Previous Post: 523. Continuous Subarray Sum">&laquo; 523. Continuous Subarray Sum</a>
 	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15612804762517.html" 
-	        title="Next Post: 50. Pow(x, n)">50. Pow(x, n) &raquo;</a>
+	        <a href="15655116831982.html" 
+	        title="Next Post: 621. Task Scheduler">621. Task Scheduler &raquo;</a>
 	    
 	</div>
   </div>
@@ -234,7 +283,7 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15612805789496.html';
+		var currentURL = '15655141790036.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');

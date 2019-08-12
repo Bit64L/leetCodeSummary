@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  60. Permutation Sequence - LeetCode刷题笔记
+  621. Task Scheduler - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -200,8 +200,79 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>60. Permutation Sequence</h1>
+<h1>621. Task Scheduler</h1>
 
+<p>Given a char array representing tasks CPU need to do. It contains capital letters A to Z where different letters represent different tasks. Tasks could be done without original order. Each task could be done in one interval. For each interval, CPU could finish one task or just be idle.</p>
+
+<p>However, there is a non-negative cooling interval n that means between two same tasks, there must be at least n intervals that CPU are doing different tasks or just be idle.</p>
+
+<p>You need to return the least number of intervals the CPU will take to finish all the given tasks.</p>
+
+<p>Example:</p>
+
+<p>Input: tasks = [&quot;A&quot;,&quot;A&quot;,&quot;A&quot;,&quot;B&quot;,&quot;B&quot;,&quot;B&quot;], n = 2<br/>
+Output: 8<br/>
+Explanation: A -&gt; B -&gt; idle -&gt; A -&gt; B -&gt; idle -&gt; A -&gt; B.</p>
+
+<p>Note:</p>
+
+<p>The number of tasks is in the range [1, 10000].<br/>
+The integer n is in the range [0, 100].</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<ol>
+<li>按照频数轮转，直到所有频数降为0</li>
+</ol>
+
+<p>注意点：<br/>
+1. 优先级队列的使用<br/>
+2. edge case，最后一次轮转特殊处理</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(new Comparator&lt;Integer&gt;(){
+            public int compare(Integer i1, Integer i2){
+                return i2 - i1;
+            }
+        });
+
+        Map&lt;Character, Integer&gt; map = new HashMap&lt;&gt;();
+        for (char t : tasks) {
+            map.put(t, map.getOrDefault(t, 0) + 1);
+        }
+
+        for (Map.Entry&lt;Character, Integer&gt; e : map.entrySet()) {
+            pq.offer(e.getValue());
+        }
+
+        int currTime = 0;
+        while (!pq.isEmpty()) {
+            List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();
+            for (int i = 0; i &lt; n + 1; i++) {
+                if(!pq.isEmpty()){
+                    int count = pq.poll();
+                    count--;
+                    if (count &gt; 0) {
+                        tmp.add(count);
+                    }
+                }
+                currTime++;
+                if(pq.isEmpty() &amp;&amp; tmp.isEmpty())
+                    break;
+            }
+            for (Integer i : tmp) {
+                pq.offer(i);
+            }
+        }
+        return currTime;
+    }
+}
+</code></pre>
 
 
 </div>
@@ -213,15 +284,15 @@
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15612806069088.html"  title="Previous Post: 31. Next Permutation">&laquo; 31. Next Permutation</a>
+	        <a href="15655141790036.html"  title="Previous Post: 253. Meeting Rooms II">&laquo; 253. Meeting Rooms II</a>
 	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15612804762517.html" 
-	        title="Next Post: 50. Pow(x, n)">50. Pow(x, n) &raquo;</a>
+	        <a href="15655064235477.html" 
+	        title="Next Post: 91. Decode Ways">91. Decode Ways &raquo;</a>
 	    
 	</div>
   </div>
@@ -234,7 +305,7 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15612805789496.html';
+		var currentURL = '15655116831982.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');

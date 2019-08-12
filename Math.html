@@ -44,8 +44,46 @@
       <li><a href="index.html">Home</a></li>
       
         <li class="divider"></li>
+        <li><label>DP</label></li>
+
+          
+            <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+          
+            <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Design</label></li>
+
+          
+            <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>String</label></li>
+
+          
+            <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Greedy</label></li>
+
+          
+            <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+          
+            <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+          
+
+      
+        <li class="divider"></li>
         <li><label>Math</label></li>
 
+          
+            <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
           
             <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
           
@@ -94,7 +132,37 @@
                   <ul id="side-nav" class="side-nav">
 
                     
+                      <li class="side-title"><span>DP</span></li>
+                        
+                          <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+                        
+                          <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Design</span></li>
+                        
+                          <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>String</span></li>
+                        
+                          <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Greedy</span></li>
+                        
+                          <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+                        
+                          <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+                        
+
+                    
                       <li class="side-title"><span>Math</span></li>
+                        
+                          <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
                         
                           <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
                         
@@ -136,63 +204,50 @@
 
 	
 		<div class="markdown-body">
-		<h1>29. Divide Two Integers</h1>
+		<h1>283. Move Zeroes</h1>
 
-		<p>Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.</p>
+		<p>Given an array nums, write a function to move all 0&#39;s to the end of it while maintaining the relative order of the non-zero elements.</p>
 
-<p>Return the quotient after dividing dividend by divisor.</p>
+<p>Example:</p>
 
-<p>The integer division should truncate toward zero.</p>
-
-<p>Example 1:</p>
-
-<p>Input: dividend = 10, divisor = 3<br/>
-Output: 3<br/>
-Example 2:</p>
-
-<p>Input: dividend = 7, divisor = -3<br/>
-Output: -2<br/>
+<p>Input: [0,1,0,3,12]<br/>
+Output: [1,3,12,0,0]<br/>
 Note:</p>
 
-<p>Both dividend and divisor will be 32-bit signed integers.<br/>
-The divisor will never be 0.<br/>
-Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. For the purpose of this problem, assume that your function returns 231 − 1 when the division result overflows.</p>
+<p>You must do this in-place without making a copy of the array.<br/>
+Minimize the total number of operations.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>用减法计算除法<br/>
-优化点：指数扩大，类似快速幂思想</p>
+<p>非零元素按顺序填充数组，余下清零</p>
 
 <h2 id="toc_1">Complexity</h2>
 
+<p>O(N) O(1)</p>
+
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">    public int divide(int dividend, int divisor) {
-        int sign = (dividend &gt;&gt;&gt; 31) ^ (divisor &gt;&gt;&gt; 31);
-        long a = Math.abs((long)dividend), b = Math.abs((long)divisor);
-        long res = sign &gt; 0 ? -helper(a, b) : helper(a, b);
-        if(res - 1 == Integer.MAX_VALUE) return Integer.MAX_VALUE;
-        return (int) res;
-    }
-
-    public long helper(long a, long b){
-        if(a &lt; b)
-            return 0;
-        long sum = 0, count = 1;
-        long oriB = b;
-        while(a &gt;= b){
-            a -= b;
-            sum += count;
-            b &lt;&lt;= 1;
-            count &lt;&lt;= 1;
-
+<pre><code class="language-java">    public void moveZeroes(int[] nums) {
+        if(nums == null || nums.length == 0)
+            return;
+        int idx = 0;
+        for(int num : nums){
+            if(num != 0){
+                nums[idx++] = num;
+            }
+                
         }
-        return sum + helper(a, oriB);
+        while(idx &lt; nums.length){
+            nums[idx++] = 0;
+        }
     }
 </code></pre>
 
 
 		</div>
+	
+
+ 
 	
 
  

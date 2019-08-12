@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  60. Permutation Sequence - LeetCode刷题笔记
+  Design - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -199,49 +199,145 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- <div class="markdown-body">
-<h1>60. Permutation Sequence</h1>
+ 
 
 
+	
+		<div class="markdown-body">
+		<h1>146. LRU Cache</h1>
 
-</div>
+		<p>Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.</p>
 
-<br /><br />
-<hr />
+<p>get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.<br/>
+put(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.</p>
 
-<div class="row clearfix">
-  <div class="large-6 columns">
-	<div class="text-left" style="padding:15px 0px;">
-		
-	        <a href="15612806069088.html"  title="Previous Post: 31. Next Permutation">&laquo; 31. Next Permutation</a>
-	    
-	</div>
-  </div>
-  <div class="large-6 columns">
-	<div class="text-right" style="padding:15px 0px;">
-		
-	        <a href="15612804762517.html" 
-	        title="Next Post: 50. Pow(x, n)">50. Pow(x, n) &raquo;</a>
-	    
-	</div>
-  </div>
-</div>
+<p>The cache is initialized with a positive capacity.</p>
 
-<div class="row">
-<div style="padding:0px 0.93em;" class="share-comments">
+<p>Follow up:<br/>
+Could you do both operations in O(1) time complexity?</p>
 
-</div>
-</div>
-<script type="text/javascript">
-	$(function(){
-		var currentURL = '15612805789496.html';
-		$('#side-nav a').each(function(){
-			if($(this).attr('href') == currentURL){
-				$(this).parent().addClass('active');
-			}
-		});
-	});
-</script>  
+<p>Example:</p>
+
+<p>LRUCache cache = new LRUCache( 2 /* capacity */ );</p>
+
+<p>cache.put(1, 1);<br/>
+cache.put(2, 2);<br/>
+cache.get(1);       // returns 1<br/>
+cache.put(3, 3);    // evicts key 2<br/>
+cache.get(2);       // returns -1 (not found)<br/>
+cache.put(4, 4);    // evicts key 1<br/>
+cache.get(1);       // returns -1 (not found)<br/>
+cache.get(3);       // returns 3<br/>
+cache.get(4);       // returns 4</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>HashMap + 双端链表</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>put O(1)<br/>
+get O(1)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">class LRUCache {
+    
+    class Node {
+        int val;
+        int key;
+        Node pre;
+        Node next;
+
+        public Node(int key, int val, Node pre, Node next) {
+            this.key = key;
+            this.val = val;
+            this.pre = pre;
+            this.next = next;
+        }
+    }
+
+    private Map&lt;Integer, Node&gt; cache;
+    private int capacity;
+    private Node head;
+    private Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.cache = new HashMap&lt;&gt;(capacity);
+        this.head = new Node(-1, -1, null, null);
+        this.tail = new Node(-1, -1, null, null);
+        head.next = tail;
+        tail.pre = head;
+    }
+
+    public int get(int key) {
+        if (cache.containsKey(key)) {
+            Node node = cache.get(key);
+            moveToFirst(node);
+            return node.val;
+        }
+        return -1;
+    }
+
+    public void put(int key, int value) {
+        if (!cache.containsKey(key)) {
+            if (cache.size() &gt;= this.capacity) {
+                //todo: delete from list
+                Node node = tail.pre;
+                node.next.pre = node.pre;
+                node.pre.next = node.next;
+                node.next = null;
+                node.pre = null;
+                //todo: delete from cache
+                cache.remove(node.key);
+            }
+            Node node = new Node(key, value, null, null);
+            cache.put(key, node);
+            addFirst(node);
+        } else {
+            Node node = cache.get(key);
+            node.val = value;
+            moveToFirst(node);
+        }
+    }
+
+    public void moveToFirst(Node node) {
+        // unbound
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        node.pre = null;
+        node.next = null;
+
+        addFirst(node);
+
+    }
+
+    public void addFirst(Node node) {
+        // move to first
+        node.next = head.next;
+        head.next.pre = node;
+
+        head.next = node;
+        node.pre = head;
+    }
+    
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+</code></pre>
+
+
+		</div>
+	
+
+  
+  
 </div></div>
 
 

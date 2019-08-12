@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  60. Permutation Sequence - LeetCode刷题笔记
+  91. Decode Ways - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -200,8 +200,73 @@
             <div class="large-9 medium-9 columns">
 
  <div class="markdown-body">
-<h1>60. Permutation Sequence</h1>
+<h1>91. Decode Ways</h1>
 
+<p>A message containing letters from A-Z is being encoded to numbers using the following mapping:</p>
+
+<p>&#39;A&#39; -&gt; 1<br/>
+&#39;B&#39; -&gt; 2<br/>
+...<br/>
+&#39;Z&#39; -&gt; 26<br/>
+Given a non-empty string containing only digits, determine the total number of ways to decode it.</p>
+
+<p>Example 1:</p>
+
+<p>Input: &quot;12&quot;<br/>
+Output: 2<br/>
+Explanation: It could be decoded as &quot;AB&quot; (1 2) or &quot;L&quot; (12).<br/>
+Example 2:</p>
+
+<p>Input: &quot;226&quot;<br/>
+Output: 3<br/>
+Explanation: It could be decoded as &quot;BZ&quot; (2 26), &quot;VF&quot; (22 6), or &quot;BBF&quot; (2 2 6).</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>dp or memorization</p>
+
+<p>过程：<br/>
+1. define OPT(i)<br/>
+2. Find recursive relation <br/>
+    OPT(i) = <br/>
+        OPT(i + 1)<br/>
+        OPT(i + 2) if s[i, i+2] is valid <br/>
+3. Initialization<br/>
+    OPT(s.length()) = 1<br/>
+    OPT(s.length() - 1) = 1 if it is valid</p>
+
+<p>注意点：<br/>
+1. edge case，防止数组越界</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>O(N) O(N)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">    class Solution {
+        public int numDecodings(String s) {
+            if(s == null || s.length() == 0)
+                return 0;
+            int[] dp = new int[s.length() + 1];
+            dp[s.length()] = 1;
+            char last = s.charAt(s.length() - 1);
+            if(last &gt;= &#39;1&#39; &amp;&amp; last &lt;= &#39;9&#39;)
+                dp[s.length() - 1] = 1;
+
+            for(int i = s.length() - 2; i &gt;= 0; i--){
+                if(s.charAt(i) == &#39;0&#39; )
+                    continue;
+                dp[i] += dp[i+1];
+                int tmp = Integer.parseInt(s.substring(i,i+2));
+                if(tmp &gt;= 1 &amp;&amp; tmp &lt;= 26){
+                    dp[i] += dp[i + 2];
+                }
+            }
+            return dp[0];
+        }
+    }
+</code></pre>
 
 
 </div>
@@ -213,15 +278,15 @@
   <div class="large-6 columns">
 	<div class="text-left" style="padding:15px 0px;">
 		
-	        <a href="15612806069088.html"  title="Previous Post: 31. Next Permutation">&laquo; 31. Next Permutation</a>
+	        <a href="15655116831982.html"  title="Previous Post: 621. Task Scheduler">&laquo; 621. Task Scheduler</a>
 	    
 	</div>
   </div>
   <div class="large-6 columns">
 	<div class="text-right" style="padding:15px 0px;">
 		
-	        <a href="15612804762517.html" 
-	        title="Next Post: 50. Pow(x, n)">50. Pow(x, n) &raquo;</a>
+	        <a href="15654596798186.html" 
+	        title="Next Post: 283. Move Zeroes">283. Move Zeroes &raquo;</a>
 	    
 	</div>
   </div>
@@ -234,7 +299,7 @@
 </div>
 <script type="text/javascript">
 	$(function(){
-		var currentURL = '15612805789496.html';
+		var currentURL = '15655064235477.html';
 		$('#side-nav a').each(function(){
 			if($(this).attr('href') == currentURL){
 				$(this).parent().addClass('active');

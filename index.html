@@ -44,8 +44,46 @@
       <li><a href="index.html">Home</a></li>
       
         <li class="divider"></li>
+        <li><label>DP</label></li>
+
+          
+            <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+          
+            <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Design</label></li>
+
+          
+            <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>String</label></li>
+
+          
+            <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Greedy</label></li>
+
+          
+            <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+          
+            <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+          
+
+      
+        <li class="divider"></li>
         <li><label>Math</label></li>
 
+          
+            <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
           
             <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
           
@@ -94,7 +132,37 @@
                   <ul id="side-nav" class="side-nav">
 
                     
+                      <li class="side-title"><span>DP</span></li>
+                        
+                          <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+                        
+                          <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Design</span></li>
+                        
+                          <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>String</span></li>
+                        
+                          <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Greedy</span></li>
+                        
+                          <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+                        
+                          <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+                        
+
+                    
                       <li class="side-title"><span>Math</span></li>
+                        
+                          <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
                         
                           <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
                         
@@ -136,66 +204,90 @@
 
 	
 		<div class="markdown-body">
-		<h1>15. 3Sum</h1>
+		<h1>523. Continuous Subarray Sum</h1>
 
-		<p>Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.</p>
+		<p>Given a list of non-negative numbers and a target integer k, write a function to check if the array has a continuous subarray of size at least 2 that sums up to a multiple of k, that is, sums up to n*k where n is also an integer.</p>
+
+<p>Example 1:</p>
+
+<p>Input: [23, 2, 4, 6, 7],  k=6<br/>
+Output: True<br/>
+Explanation: Because [2, 4] is a continuous subarray of size 2 and sums up to 6.<br/>
+Example 2:</p>
+
+<p>Input: [23, 2, 6, 4, 7],  k=6<br/>
+Output: True<br/>
+Explanation: Because [23, 2, 6, 4, 7] is an continuous subarray of size 5 and sums up to 42.</p>
 
 <p>Note:</p>
 
-<p>The solution set must not contain duplicate triplets.</p>
-
-<p>Example:</p>
-
-<p>Given array nums = [-1, 0, 1, 2, -1, -4],</p>
-
-<p>A solution set is:<br/>
-[<br/>
-  [-1, 0, 1],<br/>
-  [-1, -1, 2]<br/>
-]</p>
+<p>The length of the array won&#39;t exceed 10,000.<br/>
+You may assume the sum of all the numbers is in the range of a signed 32-bit integer.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-两处去重</p>
+<p>DP(比较奇怪)</p>
+
+<p>Corner Case:<br/>
+k == 0, 0不能做除数</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>O(n2) O(n)</p>
+<p>O(N2) O(N)</p>
 
 <h2 id="toc_2">Code</h2>
 
 <pre><code class="language-java">class Solution {
-    public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) {
-        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
-        Arrays.sort(nums);
-        for(int i = 0; i &lt; nums.length - 2; i++){
-            int c = nums[i];
-            int lo = i+1, hi = nums.length - 1;
-            if(i &gt; 0 &amp;&amp; nums[i] == nums[i-1])
-                continue;
-            while(lo &lt; hi){
-                int sum = nums[lo] + nums[hi];
-                if(sum == -c){
-                     List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;();
-                    tmp.add(c);tmp.add(nums[lo]);tmp.add(nums[hi]);
-                    res.add(tmp);
-                    while( lo &lt; hi &amp;&amp; nums[lo + 1] == nums[lo]) lo++;
-                    lo++;hi--;
-                }else if(sum &lt; -c){
-                    lo++;
-                }else{
-                    hi--;
+    public boolean checkSubarraySum(int[] nums, int k) {
+        if(nums == null || nums.length == 0)
+            return false;
+        
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        for(int i = 1; i &lt; nums.length; i++){
+            dp[i] = dp[i-1] + nums[i];
+        }
+        
+        for(int i = 0; i &lt; nums.length; i++){
+            for(int j = i+1; j&lt;nums.length; j++){
+                int diff = i - 1 &gt;= 0 ? dp[j] - dp[i-1] : dp[j];
+                if(k == 0){
+                    if(diff == 0)
+                        return true;
+                }else {
+                    if (diff % k == 0)
+                        return true;
                 }
             }
         }
-        return res;
+        return false;
     }
 }
 </code></pre>
 
 
 		</div>
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
+	
+
+ 
 	
 
  

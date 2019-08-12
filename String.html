@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  60. Permutation Sequence - LeetCode刷题笔记
+  String - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -199,49 +199,80 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- <div class="markdown-body">
-<h1>60. Permutation Sequence</h1>
+ 
 
 
+	
+		<div class="markdown-body">
+		<h1>67. Add Binary</h1>
 
-</div>
+		<p>Given two binary strings, return their sum (also a binary string).</p>
 
-<br /><br />
-<hr />
+<p>The input strings are both non-empty and contains only characters 1 or 0.</p>
 
-<div class="row clearfix">
-  <div class="large-6 columns">
-	<div class="text-left" style="padding:15px 0px;">
-		
-	        <a href="15612806069088.html"  title="Previous Post: 31. Next Permutation">&laquo; 31. Next Permutation</a>
-	    
-	</div>
-  </div>
-  <div class="large-6 columns">
-	<div class="text-right" style="padding:15px 0px;">
-		
-	        <a href="15612804762517.html" 
-	        title="Next Post: 50. Pow(x, n)">50. Pow(x, n) &raquo;</a>
-	    
-	</div>
-  </div>
-</div>
+<p>Example 1:</p>
 
-<div class="row">
-<div style="padding:0px 0.93em;" class="share-comments">
+<p>Input: a = &quot;11&quot;, b = &quot;1&quot;<br/>
+Output: &quot;100&quot;<br/>
+Example 2:</p>
 
-</div>
-</div>
-<script type="text/javascript">
-	$(function(){
-		var currentURL = '15612805789496.html';
-		$('#side-nav a').each(function(){
-			if($(this).attr('href') == currentURL){
-				$(this).parent().addClass('active');
-			}
-		});
-	});
-</script>  
+<p>Input: a = &quot;1010&quot;, b = &quot;1011&quot;<br/>
+Output: &quot;10101&quot;</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<p>模拟加法<br/>
+注意点：<br/>
+1. 计算要从个位开始，弄清楚下标如何计算<br/>
+2. 注意最后的进位是否为1</p>
+
+<h2 id="toc_1">Complexity</h2>
+
+<p>O(n) O(n)</p>
+
+<h2 id="toc_2">Code</h2>
+
+<pre><code class="language-java">class Solution {
+    public String addBinary(String a, String b) {
+        int minLength = Math.min(a.length(), b.length());
+        StringBuilder sb = new StringBuilder();
+        int carry = 0;
+        for(int i = 0; i &lt; minLength; i++){
+            int sum = a.charAt(a.length() - i - 1) - &#39;0&#39; + b.charAt(b.length()-i-1) - &#39;0&#39; + carry;
+            carry = sum / 2;
+            sb.append(sum % 2);
+        }
+        if(a.length() &gt; b.length()){
+            int i = a.length() - b.length() - 1;
+            while(i &gt;= 0){
+                int sum = a.charAt(i) - &#39;0&#39; + carry;
+                carry = sum / 2;
+                sb.append(sum % 2);
+                i--;
+            }
+        }else if(a.length() &lt; b.length()){
+            int i = b.length() - a.length() - 1;
+            while(i &gt;= 0){
+                int sum = b.charAt(i) - &#39;0&#39; + carry;
+                carry = sum / 2;
+                sb.append(sum % 2);
+                i--;
+            }
+        }
+        if(carry != 0){
+            sb.append(carry);
+        }
+        return sb.reverse().toString();
+    }
+}
+</code></pre>
+
+
+		</div>
+	
+
+  
+  
 </div></div>
 
 
