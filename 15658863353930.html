@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  173. Binary Search Tree Iterator - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,123 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>173. Binary Search Tree Iterator</h1>
 
+<p>Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.</p>
 
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
+<p>Calling next() will return the next smallest number in the BST.</p>
 
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>Example:</p>
 
-<p>Example 1:</p>
+<p>BSTIterator iterator = new BSTIterator(root);<br/>
+iterator.next();    // return 3<br/>
+iterator.next();    // return 7<br/>
+iterator.hasNext(); // return true<br/>
+iterator.next();    // return 9<br/>
+iterator.hasNext(); // return true<br/>
+iterator.next();    // return 15<br/>
+iterator.hasNext(); // return true<br/>
+iterator.next();    // return 20<br/>
+iterator.hasNext(); // return false</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
-Example 2:</p>
+<p>Note:</p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.<br/>
+You may assume that next() call will always be valid, that is, there will be at least a next smallest number in the BST when next() is called.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+<p>非递归中序遍历</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
-
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
-            }
-        });
+<pre><code class="language-java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class BSTIterator {
 
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
-            }
-            if(!isFound) ends.add(interval[1]);
+    private Deque&lt;TreeNode&gt; stack;
+    public BSTIterator(TreeNode root) {
+        stack = new ArrayDeque&lt;&gt;();
+        while(root!=null){
+            stack.push(root);
+            root = root.left;
         }
-        return ends.size();
     }
+    
+    /** @return the next smallest number */
+    public int next() {
+        TreeNode node = stack.pop();
+        TreeNode right = node.right;
+        while(right != null){
+            stack.push(right);
+            right = right.left;
+        }
+        return node.val;
+    }
+    
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return stack.size() &gt; 0;
+    }
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15658899759390.html"  title="Previous Post: 325. Maximum Size Subarray Sum Equals k">&laquo; 325. Maximum Size Subarray Sum Equals k</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15658848245751.html" 
+	        title="Next Post: 211. Add and Search Word - Data structure design">211. Add and Search Word - Data structure design &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15658863353930.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  125. Valid Palindrome - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,101 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>125. Valid Palindrome</h1>
 
+<p>Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.</p>
 
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
-
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>Note: For the purpose of this problem, we define empty string as valid palindrome.</p>
 
 <p>Example 1:</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
+<p>Input: &quot;A man, a plan, a canal: Panama&quot;<br/>
+Output: true<br/>
 Example 2:</p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>Input: &quot;race a car&quot;<br/>
+Output: false</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+<p>双指针</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
+<p>O(N) O(1)</p>
 
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
+<pre><code class="language-java">class Solution {
+    public boolean isPalindrome(String s) {
+        if(s == null || s.length() == 0)
+            return true;
+        s = s.toLowerCase();
+        int i = 0, j = s.length() - 1;
+        while(i &lt; j){
+            while(!isAlphanumeric(s.charAt(i)) &amp;&amp; i &lt; j){
+                i++;
             }
-        });
-
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
+            while(!isAlphanumeric(s.charAt(j)) &amp;&amp; i &lt; j){
+                j--;
             }
-            if(!isFound) ends.add(interval[1]);
+            if(s.charAt(i) != s.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
         }
-        return ends.size();
+        return true;
     }
+    
+    public boolean isAlphanumeric(char a){
+        if((a&gt;=&#39;a&#39; &amp;&amp; a &lt;=&#39;z&#39;) || (a&gt;=&#39;0&#39; &amp;&amp; a&lt;=&#39;9&#39;))
+            return true;
+        return false;
+    }
+}
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15656938001888.html"  title="Previous Post: 17. Letter Combinations of a Phone Number">&laquo; 17. Letter Combinations of a Phone Number</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15656852850772.html" 
+	        title="Next Post: 314. Binary Tree Vertical Order Traversal">314. Binary Tree Vertical Order Traversal &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15656862451657.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  157. Read N Characters Given Read4 - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,154 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>157. Read N Characters Given Read4</h1>
 
+<p>Given a file and assume that you can only read the file using a given method read4, implement a method to read n characters.</p>
 
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
+<p>Method read4:</p>
 
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>The API read4 reads 4 consecutive characters from the file, then writes those characters into the buffer array buf.</p>
+
+<p>The return value is the number of actual characters read.</p>
+
+<p>Note that read4() has its own file pointer, much like FILE *fp in C.</p>
+
+<p>Definition of read4:</p>
+
+<pre><code>Parameter:  char[] buf
+Returns:    int
+</code></pre>
+
+<p>Note: buf[] is destination not source, the results from read4 will be copied to buf[]<br/>
+Below is a high level example of how read4 works:</p>
+
+<p>File file(&quot;abcdefghijk&quot;); // File is &quot;abcdefghijk&quot;, initially file pointer (fp) points to &#39;a&#39;<br/>
+char[] buf = new char[4]; // Create buffer with enough space to store characters<br/>
+read4(buf); // read4 returns 4. Now buf = &quot;abcd&quot;, fp points to &#39;e&#39;<br/>
+read4(buf); // read4 returns 4. Now buf = &quot;efgh&quot;, fp points to &#39;i&#39;<br/>
+read4(buf); // read4 returns 3. Now buf = &quot;ijk&quot;, fp points to end of file</p>
+
+<p>Method read:</p>
+
+<p>By using the read4 method, implement the method read that reads n characters from the file and store it in the buffer array buf. Consider that you cannot manipulate the file directly.</p>
+
+<p>The return value is the number of actual characters read.</p>
+
+<p>Definition of read:</p>
+
+<pre><code>Parameters: char[] buf, int n
+Returns:    int
+</code></pre>
+
+<p>Note: buf[] is destination not source, you will need to write the results to buf[]</p>
 
 <p>Example 1:</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
+<p>Input: file = &quot;abc&quot;, n = 4<br/>
+Output: 3<br/>
+Explanation: After calling your read method, buf should contain &quot;abc&quot;. We read a total of 3 characters from the file, so return 3. Note that &quot;abc&quot; is the file&#39;s content, not buf. buf is the destination buffer that you will have to write the results to.<br/>
 Example 2:</p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>Input: file = &quot;abcde&quot;, n = 5<br/>
+Output: 5<br/>
+Explanation: After calling your read method, buf should contain &quot;abcde&quot;. We read a total of 5 characters from the file, so return 5.<br/>
+Example 3:</p>
+
+<p>Input: file = &quot;abcdABCD1234&quot;, n = 12<br/>
+Output: 12<br/>
+Explanation: After calling your read method, buf should contain &quot;abcdABCD1234&quot;. We read a total of 12 characters from the file, so return 12.<br/>
+Example 4:</p>
+
+<p>Input: file = &quot;leetcode&quot;, n = 5<br/>
+Output: 5<br/>
+Explanation: After calling your read method, buf should contain &quot;leetc&quot;. We read a total of 5 characters from the file, so return 5.</p>
+
+<p>Note:</p>
+
+<p>Consider that you cannot manipulate the file directly, the file is only accesible for read4 but not for read.<br/>
+The read function will only be called once for each test case.<br/>
+You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+<p>Edge Case:<br/>
+1. read4读完: num &lt; 4 =&gt; break<br/>
+2. read4超过n: copy的时候加 idx &lt; n</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
+<p>O(N)</p>
 
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
+<pre><code class="language-java">/**
+ * The read4 API is defined in the parent class Reader4.
+ *     int read4(char[] buf);
+ */
+public class Solution extends Reader4 {
+    /**
+     * @param buf Destination buffer
+     * @param n   Number of characters to read
+     * @return    The number of actual characters read
+     */
+    public int read(char[] buf, int n) {
+        char[] tmpBuf = new char[4];
+        
+        int idx = 0;
+        while(idx &lt; n){
+            int num = read4(tmpBuf);
+            
+            for(int i = 0; i &lt; num &amp;&amp; idx &lt; n; i++){
+                buf[idx++] = tmpBuf[i]; 
             }
-        });
-
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
-            }
-            if(!isFound) ends.add(interval[1]);
+            
+            if(num &lt; 4) break;
         }
-        return ends.size();
+        return idx;
     }
+}
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15656141024563.html"  title="Previous Post: 29. Divide Two Integers">&laquo; 29. Divide Two Integers</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15656093210070.html" 
+	        title="Next Post: 278. First Bad Version">278. First Bad Version &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15656102712396.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

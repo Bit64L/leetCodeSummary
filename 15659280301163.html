@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  56. Merge Intervals - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,105 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>56. Merge Intervals</h1>
 
-
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
-
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>Given a collection of intervals, merge all overlapping intervals.</p>
 
 <p>Example 1:</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
+<p>Input: [[1,3],[2,6],[8,10],[15,18]]<br/>
+Output: [[1,6],[8,10],[15,18]]<br/>
+Explanation: Since intervals [1,3] and [2,6] overlaps, merge them into [1,6].<br/>
 Example 2:</p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>Input: [[1,4],[4,5]]<br/>
+Output: [[1,5]]<br/>
+Explanation: Intervals [1,4] and [4,5] are considered overlapping.<br/>
+NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.</p>
 
 <h2 id="toc_0">Solution</h2>
 
+<p>解法比较straight forward，排序然后merge即可</p>
+
 <p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+二维数组如何排序</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
+<p>O(N) O(N)</p>
 
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
+<pre><code class="language-java">class Solution {
+    public int[][] merge(int[][] intervals) {
+        if(intervals == null || intervals.length == 0) return new int[0][2];
         Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
+            public int compare(int[] a, int[] b){
+                return a[0] - b[0];
             }
         });
-
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
+        List&lt;int[]&gt; list = new ArrayList&lt;&gt;();
+        
         for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
+            if(list.size() == 0)
+                list.add(interval);
+            else{
+                int[] lastInterval = list.get(list.size() - 1);
+                if(interval[0] &lt;= lastInterval[1])
+                    lastInterval[1] = Math.max(lastInterval[1], interval[1]);
+                else
+                    list.add(interval);
             }
-            if(!isFound) ends.add(interval[1]);
         }
-        return ends.size();
+        
+        int[][] res = new int[list.size()][2];
+        for(int i = 0; i &lt; list.size(); i++)
+            res[i] = list.get(i);
+        return res;
     }
+}
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15659286528907.html"  title="Previous Post: 1. Two Sum">&laquo; 1. Two Sum</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15658899759390.html" 
+	        title="Next Post: 325. Maximum Size Subarray Sum Equals k">325. Maximum Size Subarray Sum Equals k &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15659280301163.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

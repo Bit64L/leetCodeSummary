@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  314. Binary Tree Vertical Order Traversal - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,186 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>314. Binary Tree Vertical Order Traversal</h1>
 
+<p>Given a binary tree, return the vertical order traversal of its nodes&#39; values. (ie, from top to bottom, column by column).</p>
 
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
+<p>If two nodes are in the same row and column, the order should be from left to right.</p>
 
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>Examples 1:</p>
 
-<p>Example 1:</p>
+<p>Input: [3,9,20,null,null,15,7]</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
-Example 2:</p>
+<p>3<br/>
+  /\<br/>
+ /  \<br/>
+ 9  20<br/>
+    /\<br/>
+   /  \<br/>
+  15   7 </p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>Output:</p>
+
+<p>[<br/>
+  [9],<br/>
+  [3,15],<br/>
+  [20],<br/>
+  [7]<br/>
+]<br/>
+Examples 2:</p>
+
+<p>Input: [3,9,8,4,0,1,7]</p>
+
+<pre><code> 3
+/\
+</code></pre>
+
+<p>/  \<br/>
+   9   8<br/>
+  /\  /\<br/>
+ /  \/  \<br/>
+ 4  01   7 </p>
+
+<p>Output:</p>
+
+<p>[<br/>
+  [4],<br/>
+  [9],<br/>
+  [3,0,1],<br/>
+  [8],<br/>
+  [7]<br/>
+]<br/>
+Examples 3:</p>
+
+<p>Input: <a href="0&#x27;s%20right%20child%20is%202%20and%201&#x27;s%20left%20child%20is%205">3,9,8,4,0,1,7,null,null,null,2,5</a></p>
+
+<pre><code> 3
+/\
+</code></pre>
+
+<p>/  \<br/>
+   9   8<br/>
+  /\  /\<br/>
+ /  \/  \<br/>
+ 4  01   7<br/>
+    /\<br/>
+   /  \<br/>
+   5   2</p>
+
+<p>Output:</p>
+
+<p>[<br/>
+  [4],<br/>
+  [9,5],<br/>
+  [3,0,1],<br/>
+  [8,2],<br/>
+  [7]<br/>
+]</p>
 
 <h2 id="toc_0">Solution</h2>
 
+<p>将node按照列放入map<br/>
+使用Treemap记录key的顺序</p>
+
 <p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+1. DFS不可行，无法保证同一列的node 至定向下输出</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
+<p>O(N) O(N)</p>
 
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
+<pre><code class="language-java">/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List&lt;List&lt;Integer&gt;&gt; verticalOrder(TreeNode root) {
+        List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;();
+        if( root == null ) return res;
+        
+        
+        
+        Map&lt;Integer, List&lt;Integer&gt;&gt; map = new TreeMap&lt;&gt;();
+        Deque&lt;TreeNode&gt; dq = new ArrayDeque&lt;&gt;();
+        Deque&lt;Integer&gt; cols = new ArrayDeque&lt;&gt;();
+        
+        dq.offer(root);
+        cols.offer(0);
+        
+        while(!dq.isEmpty()){
+            TreeNode node = dq.poll();
+            Integer col = cols.poll();
+            
+            if(!map.containsKey(col)){
+                map.put(col, new ArrayList&lt;Integer&gt;());
             }
-        });
-
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
+            
+            List&lt;Integer&gt; tmp = map.get(col);
+            tmp.add(node.val);
+            
+            if(node.left != null){
+                dq.offer(node.left);
+                cols.offer(col - 1);
             }
-            if(!isFound) ends.add(interval[1]);
+            if(node.right != null){
+                dq.offer(node.right);
+                cols.offer(col + 1);
+            }
         }
-        return ends.size();
+        
+        return new ArrayList&lt;&gt;(map.values());
+        
     }
+}
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15656862451657.html"  title="Previous Post: 125. Valid Palindrome">&laquo; 125. Valid Palindrome</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15656141024563.html" 
+	        title="Next Post: 29. Divide Two Integers">29. Divide Two Integers &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15656852850772.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

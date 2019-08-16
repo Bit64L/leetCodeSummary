@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  211. Add and Search Word - Data structure design - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -355,72 +355,132 @@
             </div>
             <div class="large-9 medium-9 columns">
 
- 
+ <div class="markdown-body">
+<h1>211. Add and Search Word - Data structure design</h1>
 
+<p>Design a data structure that supports the following two operations:</p>
 
-	
-		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
+<p>void addWord(word)<br/>
+bool search(word)<br/>
+search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . means it can represent any one letter.</p>
 
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+<p>Example:</p>
 
-<p>Example 1:</p>
-
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
-Example 2:</p>
-
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>addWord(&quot;bad&quot;)<br/>
+addWord(&quot;dad&quot;)<br/>
+addWord(&quot;mad&quot;)<br/>
+search(&quot;pad&quot;) -&gt; false<br/>
+search(&quot;bad&quot;) -&gt; true<br/>
+search(&quot;.ad&quot;) -&gt; true<br/>
+search(&quot;b..&quot;) -&gt; true<br/>
+Note:<br/>
+You may assume that all words are consist of lowercase letters a-z.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+<p>字典树的典型应用场景<br/>
+1. 字典树Node的定义<br/>
+2. item存在的意义：识别在路径中，但却没有定义过的情况</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
-
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
-            }
-        });
+<pre><code class="language-java">class WordDictionary {
 
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
-            }
-            if(!isFound) ends.add(interval[1]);
-        }
-        return ends.size();
+    class TrieNode{
+        TrieNode[] children = new TrieNode[26];
+        String item = &quot;&quot;;
     }
+    
+    private TrieNode root;
+    /** Initialize your data structure here. */
+    public WordDictionary() {
+        root = new TrieNode();
+    }
+    
+    /** Adds a word into the data structure. */
+    public void addWord(String word) {
+        TrieNode node = root;
+        for(Character c : word.toCharArray()){
+            if(node.children[c-&#39;a&#39;] == null){
+                node.children[c-&#39;a&#39;] = new TrieNode();
+            }
+            node = node.children[c-&#39;a&#39;];
+        }
+        node.item = word;
+    }
+    
+    /** Returns if the word is in the data structure. A word could contain the dot character &#39;.&#39; to represent any one letter. */
+    public boolean search(String word) {
+        return match(word.toCharArray(), 0, root);
+    }
+    
+    public boolean match(char[] arr, int k, TrieNode node){
+        if(k == arr.length){
+            return !node.item.equals(&quot;&quot;);
+        }
+            
+        if(arr[k] == &#39;.&#39;){
+            for(int i = 0; i &lt; node.children.length;i++){
+                if(node.children[i] != null &amp;&amp; match(arr, k+1, node.children[i]))
+                    return true;
+            }
+        }else{
+            return node.children[arr[k]-&#39;a&#39;] != null &amp;&amp; match(arr, k+1, node.children[arr[k]-&#39;a&#39;]);
+        }
+        return false;
+    }
+    
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */
 </code></pre>
 
 
-		</div>
-	
+</div>
 
- 
-	
+<br /><br />
+<hr />
 
-  
-  
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15658863353930.html"  title="Previous Post: 173. Binary Search Tree Iterator">&laquo; 173. Binary Search Tree Iterator</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15658812449380.html" 
+	        title="Next Post: 721. Accounts Merge">721. Accounts Merge &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15658848245751.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
 </div></div>
 
 

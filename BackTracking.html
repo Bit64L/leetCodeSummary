@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>
     
-  Greedy - LeetCode刷题笔记
+  BackTracking - LeetCode刷题笔记
   
   </title>
  <meta name="description" content="">
@@ -360,63 +360,64 @@
 
 	
 		<div class="markdown-body">
-		<h1>253. Meeting Rooms II</h1>
+		<h1>17. Letter Combinations of a Phone Number</h1>
 
-		<p>Given an array of meeting time intervals consisting of start and end times <a href="si%20%3C%20ei">[s1,e1],[s2,e2],...</a>, find the minimum number of conference rooms required.</p>
+		<p>Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.</p>
 
-<p>Example 1:</p>
+<p>A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.</p>
 
-<p>Input: [[0, 30],[5, 10],[15, 20]]<br/>
-Output: 2<br/>
-Example 2:</p>
+<p>Example:</p>
 
-<p>Input: [[7,10],[2,4]]<br/>
-Output: 1</p>
+<p>Input: &quot;23&quot;<br/>
+Output: [&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;].<br/>
+Note:</p>
+
+<p>Although the above answer is in lexicographical order, your answer could be in any order you want.</p>
 
 <h2 id="toc_0">Solution</h2>
 
-<p>注意点：<br/>
-1. 对于容器，如何在循环中修改元素的值</p>
+<p>经典Backtracking题目</p>
 
 <h2 id="toc_1">Complexity</h2>
 
-<p>Worst O(N2)<br/>
-Best O(N)</p>
-
 <h2 id="toc_2">Code</h2>
 
-<pre><code class="language-java">public int minMeetingRooms(int[][] intervals) {
-        if(intervals == null || intervals.length == 0)
-            return 0;
-        Arrays.sort(intervals, new Comparator&lt;int[]&gt;(){
-            public int compare(int[] i1, int[] i2){
-                return i1[0] - i2[0];
-            }
-        });
-
-        List&lt;Integer&gt; ends = new ArrayList&lt;&gt;();
-        for(int[] interval : intervals){
-            boolean isFound = false;
-            ListIterator&lt;Integer&gt; iterator = ends.listIterator();
-            while(iterator.hasNext()){
-                Integer end = iterator.next();
-                if(interval[0] &gt;= end){
-                    iterator.set(interval[1]);
-                    isFound = true;
-                    break;
-                }
-            }
-            if(!isFound) ends.add(interval[1]);
-        }
-        return ends.size();
+<pre><code class="language-java">class Solution {
+    public List&lt;String&gt; letterCombinations(String digits) {
+        if(digits == null || digits.length() == 0)
+            return new ArrayList&lt;&gt;();
+        List&lt;String&gt; res = new ArrayList&lt;&gt;();
+        Map&lt;Character, String&gt; map = new HashMap&lt;&gt;();
+        map.put(&#39;2&#39;, &quot;abc&quot;);
+        map.put(&#39;3&#39;, &quot;def&quot;);
+        map.put(&#39;4&#39;, &quot;ghi&quot;);
+        map.put(&#39;5&#39;, &quot;jkl&quot;);
+        map.put(&#39;6&#39;, &quot;mno&quot;);
+        map.put(&#39;7&#39;, &quot;pqrs&quot;);
+        map.put(&#39;8&#39;, &quot;tuv&quot;);
+        map.put(&#39;9&#39;, &quot;wxyz&quot;);
+        helper(digits, 0, new StringBuilder(), res, map);
+        return res;
+    
     }
+    public void helper(String digits, int start, StringBuilder sb, List&lt;String&gt; res, Map&lt;Character, String&gt; map){
+        if(start &gt;= digits.length()){
+            res.add(sb.toString());
+            return;
+        }
+        
+        String s = map.get(digits.charAt(start));
+        for(Character c : s.toCharArray()){
+            sb.append(c);
+            helper(digits, start + 1, sb, res, map);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+    }
+}
 </code></pre>
 
 
 		</div>
-	
-
- 
 	
 
   
