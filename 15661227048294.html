@@ -1,0 +1,632 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    
+  215. Kth Largest Element in an Array - LeetCode刷题笔记
+  
+  </title>
+ <meta name="description" content="">
+ <link href="atom.xml" rel="alternate" title="LeetCode刷题笔记" type="application/atom+xml">
+    <link rel="stylesheet" href="asset/css/foundation.min.css" />
+    <link rel="stylesheet" href="asset/css/docs.css" />
+
+    <script src="asset/js/vendor/modernizr.js"></script>
+    <script src="asset/js/vendor/jquery.js"></script>
+    <script src="asset/highlightjs/highlight.pack.js"></script>
+    <link href="asset/highlightjs/styles/github.css" media="screen, projection" rel="stylesheet" type="text/css">
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+  </head>
+  <body class="antialiased hide-extras">
+    
+    <div class="marketing off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+
+
+<nav class="top-bar docs-bar hide-for-small" data-topbar>
+
+<div id="header">
+    <h1><a href="index.html">LeetCode刷题笔记</a></h1>
+</div>
+
+</nav>
+        <nav class="tab-bar show-for-small">
+  <a href="javascript:void(0)" class="left-off-canvas-toggle menu-icon">
+    <span> &nbsp; LeetCode刷题笔记</span>
+  </a>
+</nav>
+
+<aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+      <li><a href="index.html">Home</a></li>
+      
+        <li class="divider"></li>
+        <li><label>DP</label></li>
+
+          
+            <li><a title="418. Sentence Screen Fitting" href="15666182775361.html">418. Sentence Screen Fitting</a></li>
+          
+            <li><a title="121. Best Time to Buy and Sell Stock" href="15659568065004.html">121. Best Time to Buy and Sell Stock</a></li>
+          
+            <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+          
+            <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Design</label></li>
+
+          
+            <li><a title="288. Unique Word Abbreviation" href="15673224275335.html">288. Unique Word Abbreviation</a></li>
+          
+            <li><a title="244. Shortest Word Distance II" href="15661370980417.html">244. Shortest Word Distance II</a></li>
+          
+            <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Greedy</label></li>
+
+          
+            <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+          
+            <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>DFS & BFS</label></li>
+
+          
+            <li><a title="947. Most Stones Removed with Same Row or Column" href="15665705336842.html">947. Most Stones Removed with Same Row or Column</a></li>
+          
+            <li><a title="364. Nested List Weight Sum II" href="15661383382673.html">364. Nested List Weight Sum II</a></li>
+          
+            <li><a title="200. Number of Islands" href="15659540028262.html">200. Number of Islands</a></li>
+          
+            <li><a title="694. Number of Distinct Islands" href="15657069520309.html">694. Number of Distinct Islands</a></li>
+          
+            <li><a title="314. Binary Tree Vertical Order Traversal" href="15656852850772.html">314. Binary Tree Vertical Order Traversal</a></li>
+          
+            <li><a title="301. Remove Invalid Parentheses" href="15656028881744.html">301. Remove Invalid Parentheses</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Binary Search</label></li>
+
+          
+            <li><a title="278. First Bad Version" href="15656093210070.html">278. First Bad Version</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Bit Manipulation</label></li>
+
+          
+            <li><a title="29. Divide Two Integers" href="15656141024563.html">29. Divide Two Integers</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>BackTracking</label></li>
+
+          
+            <li><a title="17. Letter Combinations of a Phone Number" href="15656938001888.html">17. Letter Combinations of a Phone Number</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Union FInd</label></li>
+
+          
+            <li><a title="721. Accounts Merge" href="15658812449380.html">721. Accounts Merge</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Tire</label></li>
+
+          
+            <li><a title="211. Add and Search Word - Data structure design" href="15658848245751.html">211. Add and Search Word - Data structure design</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Tree</label></li>
+
+          
+            <li><a title="298. Binary Tree Longest Consecutive Sequence" href="15666574382128.html">298. Binary Tree Longest Consecutive Sequence</a></li>
+          
+            <li><a title="426. Convert Binary Search Tree to Sorted Doubly Linked List" href="15661222271473.html">426. Convert Binary Search Tree to Sorted Doubly Linked List</a></li>
+          
+            <li><a title="98. Validate Binary Search Tree" href="15661204616324.html">98. Validate Binary Search Tree</a></li>
+          
+            <li><a title="114. Flatten Binary Tree to Linked List" href="15659563538582.html">114. Flatten Binary Tree to Linked List</a></li>
+          
+            <li><a title="257. Binary Tree Paths" href="15659500179937.html">257. Binary Tree Paths</a></li>
+          
+            <li><a title="173. Binary Search Tree Iterator" href="15658863353930.html">173. Binary Search Tree Iterator</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Graph</label></li>
+
+          
+            <li><a title="399. Evaluate Division" href="15665527020300.html">399. Evaluate Division</a></li>
+          
+            <li><a title="133. Clone Graph" href="15659468014395.html">133. Clone Graph</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Heap</label></li>
+
+          
+            <li><a title="215. Kth Largest Element in an Array" href="15661227048294.html">215. Kth Largest Element in an Array</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Math</label></li>
+
+          
+            <li><a title="311. Sparse Matrix Multiplication" href="15661021139075.html">311. Sparse Matrix Multiplication</a></li>
+          
+            <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
+          
+            <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
+          
+            <li><a title="69. Sqrt(x)" href="15612806501862.html">69. Sqrt(x)</a></li>
+          
+            <li><a title="204. Count Primes" href="15612806087988.html">204. Count Primes</a></li>
+          
+            <li><a title="149. Max Points on a Line" href="15612806078773.html">149. Max Points on a Line</a></li>
+          
+            <li><a title="31. Next Permutation" href="15612806069088.html">31. Next Permutation</a></li>
+          
+            <li><a title="60. Permutation Sequence" href="15612805789496.html">60. Permutation Sequence</a></li>
+          
+            <li><a title="50. Pow(x, n)" href="15612804762517.html">50. Pow(x, n)</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Linkedlist</label></li>
+
+          
+            <li><a title="234. Palindrome Linked List" href="15615619036350.html">234. Palindrome Linked List</a></li>
+          
+
+      
+        <li class="divider"></li>
+        <li><label>Array & String</label></li>
+
+          
+            <li><a title="1177. Can Make Palindrome from Substring(Prefix Sum)" href="15673193798602.html">1177. Can Make Palindrome from Substring(Prefix Sum)</a></li>
+          
+            <li><a title="1176. Diet Plan Performance(Prefix Sum)" href="15673192777405.html">1176. Diet Plan Performance(Prefix Sum)</a></li>
+          
+            <li><a title="1175. Prime Arrangements" href="15673191525865.html">1175. Prime Arrangements</a></li>
+          
+            <li><a title="271. Encode and Decode Strings" href="15672347706635.html">271. Encode and Decode Strings</a></li>
+          
+            <li><a title="683. K Empty Slots" href="15672285762975.html">683. K Empty Slots</a></li>
+          
+            <li><a title="159. Longest Substring with At Most Two Distinct Characters(Sliding Window)" href="15666207520305.html">159. Longest Substring with At Most Two Distinct Characters(Sliding Window)</a></li>
+          
+            <li><a title="686. Repeated String Match" href="15665495591200.html">686. Repeated String Match</a></li>
+          
+            <li><a title="904. Fruit Into Baskets" href="15665349461507.html">904. Fruit Into Baskets</a></li>
+          
+            <li><a title="681. Next Closest Time" href="15665320512422.html">681. Next Closest Time</a></li>
+          
+            <li><a title="388. Longest Absolute File Path" href="15664893954907.html">388. Longest Absolute File Path</a></li>
+          
+            <li><a title="277. Find the celebrity" href="15661188323433.html">277. Find the celebrity</a></li>
+          
+            <li><a title="238. Product of Array Except Self" href="15661087318209.html">238. Product of Array Except Self</a></li>
+          
+            <li><a title="560. Subarray Sum Equals K" href="15659619477638.html">560. Subarray Sum Equals K</a></li>
+          
+            <li><a title="680. Valid Palindrome II" href="15659547860630.html">680. Valid Palindrome II</a></li>
+          
+            <li><a title="1. Two Sum" href="15659286528907.html">1. Two Sum</a></li>
+          
+            <li><a title="56. Merge Intervals" href="15659280301163.html">56. Merge Intervals</a></li>
+          
+            <li><a title="325. Maximum Size Subarray Sum Equals k" href="15658899759390.html">325. Maximum Size Subarray Sum Equals k</a></li>
+          
+            <li><a title="31. Next Permutation (Medium)" href="15656954729245.html">31. Next Permutation (Medium)</a></li>
+          
+            <li><a title="125. Valid Palindrome" href="15656862451657.html">125. Valid Palindrome</a></li>
+          
+            <li><a title="157. Read N Characters Given Read4" href="15656102712396.html">157. Read N Characters Given Read4</a></li>
+          
+            <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+          
+            <li><a title="15. 3Sum" href="15646781376296.html">15. 3Sum</a></li>
+          
+
+      
+      </ul>
+    </aside>
+
+<a class="exit-off-canvas" href="#"></a>
+
+        <section id="main-content" role="main" class="scroll-container">
+
+          <div class="row">
+            <div class="large-3 medium-3 columns">
+              <div class="hide-for-small">
+                <div class="sidebar">
+                <nav>
+                  <ul id="side-nav" class="side-nav">
+
+                    
+                      <li class="side-title"><span>DP</span></li>
+                        
+                          <li><a title="418. Sentence Screen Fitting" href="15666182775361.html">418. Sentence Screen Fitting</a></li>
+                        
+                          <li><a title="121. Best Time to Buy and Sell Stock" href="15659568065004.html">121. Best Time to Buy and Sell Stock</a></li>
+                        
+                          <li><a title="523. Continuous Subarray Sum" href="15655979933370.html">523. Continuous Subarray Sum</a></li>
+                        
+                          <li><a title="91. Decode Ways" href="15655064235477.html">91. Decode Ways</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Design</span></li>
+                        
+                          <li><a title="288. Unique Word Abbreviation" href="15673224275335.html">288. Unique Word Abbreviation</a></li>
+                        
+                          <li><a title="244. Shortest Word Distance II" href="15661370980417.html">244. Shortest Word Distance II</a></li>
+                        
+                          <li><a title="146. LRU Cache" href="15654567682837.html">146. LRU Cache</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Greedy</span></li>
+                        
+                          <li><a title="253. Meeting Rooms II" href="15655141790036.html">253. Meeting Rooms II</a></li>
+                        
+                          <li><a title="621. Task Scheduler" href="15655116831982.html">621. Task Scheduler</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>DFS & BFS</span></li>
+                        
+                          <li><a title="947. Most Stones Removed with Same Row or Column" href="15665705336842.html">947. Most Stones Removed with Same Row or Column</a></li>
+                        
+                          <li><a title="364. Nested List Weight Sum II" href="15661383382673.html">364. Nested List Weight Sum II</a></li>
+                        
+                          <li><a title="200. Number of Islands" href="15659540028262.html">200. Number of Islands</a></li>
+                        
+                          <li><a title="694. Number of Distinct Islands" href="15657069520309.html">694. Number of Distinct Islands</a></li>
+                        
+                          <li><a title="314. Binary Tree Vertical Order Traversal" href="15656852850772.html">314. Binary Tree Vertical Order Traversal</a></li>
+                        
+                          <li><a title="301. Remove Invalid Parentheses" href="15656028881744.html">301. Remove Invalid Parentheses</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Binary Search</span></li>
+                        
+                          <li><a title="278. First Bad Version" href="15656093210070.html">278. First Bad Version</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Bit Manipulation</span></li>
+                        
+                          <li><a title="29. Divide Two Integers" href="15656141024563.html">29. Divide Two Integers</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>BackTracking</span></li>
+                        
+                          <li><a title="17. Letter Combinations of a Phone Number" href="15656938001888.html">17. Letter Combinations of a Phone Number</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Union FInd</span></li>
+                        
+                          <li><a title="721. Accounts Merge" href="15658812449380.html">721. Accounts Merge</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Tire</span></li>
+                        
+                          <li><a title="211. Add and Search Word - Data structure design" href="15658848245751.html">211. Add and Search Word - Data structure design</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Tree</span></li>
+                        
+                          <li><a title="298. Binary Tree Longest Consecutive Sequence" href="15666574382128.html">298. Binary Tree Longest Consecutive Sequence</a></li>
+                        
+                          <li><a title="426. Convert Binary Search Tree to Sorted Doubly Linked List" href="15661222271473.html">426. Convert Binary Search Tree to Sorted Doubly Linked List</a></li>
+                        
+                          <li><a title="98. Validate Binary Search Tree" href="15661204616324.html">98. Validate Binary Search Tree</a></li>
+                        
+                          <li><a title="114. Flatten Binary Tree to Linked List" href="15659563538582.html">114. Flatten Binary Tree to Linked List</a></li>
+                        
+                          <li><a title="257. Binary Tree Paths" href="15659500179937.html">257. Binary Tree Paths</a></li>
+                        
+                          <li><a title="173. Binary Search Tree Iterator" href="15658863353930.html">173. Binary Search Tree Iterator</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Graph</span></li>
+                        
+                          <li><a title="399. Evaluate Division" href="15665527020300.html">399. Evaluate Division</a></li>
+                        
+                          <li><a title="133. Clone Graph" href="15659468014395.html">133. Clone Graph</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Heap</span></li>
+                        
+                          <li><a title="215. Kth Largest Element in an Array" href="15661227048294.html">215. Kth Largest Element in an Array</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Math</span></li>
+                        
+                          <li><a title="311. Sparse Matrix Multiplication" href="15661021139075.html">311. Sparse Matrix Multiplication</a></li>
+                        
+                          <li><a title="283. Move Zeroes" href="15654596798186.html">283. Move Zeroes</a></li>
+                        
+                          <li><a title="29. Divide Two Integers" href="15612806577050.html">29. Divide Two Integers</a></li>
+                        
+                          <li><a title="69. Sqrt(x)" href="15612806501862.html">69. Sqrt(x)</a></li>
+                        
+                          <li><a title="204. Count Primes" href="15612806087988.html">204. Count Primes</a></li>
+                        
+                          <li><a title="149. Max Points on a Line" href="15612806078773.html">149. Max Points on a Line</a></li>
+                        
+                          <li><a title="31. Next Permutation" href="15612806069088.html">31. Next Permutation</a></li>
+                        
+                          <li><a title="60. Permutation Sequence" href="15612805789496.html">60. Permutation Sequence</a></li>
+                        
+                          <li><a title="50. Pow(x, n)" href="15612804762517.html">50. Pow(x, n)</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Linkedlist</span></li>
+                        
+                          <li><a title="234. Palindrome Linked List" href="15615619036350.html">234. Palindrome Linked List</a></li>
+                        
+
+                    
+                      <li class="side-title"><span>Array & String</span></li>
+                        
+                          <li><a title="1177. Can Make Palindrome from Substring(Prefix Sum)" href="15673193798602.html">1177. Can Make Palindrome from Substring(Prefix Sum)</a></li>
+                        
+                          <li><a title="1176. Diet Plan Performance(Prefix Sum)" href="15673192777405.html">1176. Diet Plan Performance(Prefix Sum)</a></li>
+                        
+                          <li><a title="1175. Prime Arrangements" href="15673191525865.html">1175. Prime Arrangements</a></li>
+                        
+                          <li><a title="271. Encode and Decode Strings" href="15672347706635.html">271. Encode and Decode Strings</a></li>
+                        
+                          <li><a title="683. K Empty Slots" href="15672285762975.html">683. K Empty Slots</a></li>
+                        
+                          <li><a title="159. Longest Substring with At Most Two Distinct Characters(Sliding Window)" href="15666207520305.html">159. Longest Substring with At Most Two Distinct Characters(Sliding Window)</a></li>
+                        
+                          <li><a title="686. Repeated String Match" href="15665495591200.html">686. Repeated String Match</a></li>
+                        
+                          <li><a title="904. Fruit Into Baskets" href="15665349461507.html">904. Fruit Into Baskets</a></li>
+                        
+                          <li><a title="681. Next Closest Time" href="15665320512422.html">681. Next Closest Time</a></li>
+                        
+                          <li><a title="388. Longest Absolute File Path" href="15664893954907.html">388. Longest Absolute File Path</a></li>
+                        
+                          <li><a title="277. Find the celebrity" href="15661188323433.html">277. Find the celebrity</a></li>
+                        
+                          <li><a title="238. Product of Array Except Self" href="15661087318209.html">238. Product of Array Except Self</a></li>
+                        
+                          <li><a title="560. Subarray Sum Equals K" href="15659619477638.html">560. Subarray Sum Equals K</a></li>
+                        
+                          <li><a title="680. Valid Palindrome II" href="15659547860630.html">680. Valid Palindrome II</a></li>
+                        
+                          <li><a title="1. Two Sum" href="15659286528907.html">1. Two Sum</a></li>
+                        
+                          <li><a title="56. Merge Intervals" href="15659280301163.html">56. Merge Intervals</a></li>
+                        
+                          <li><a title="325. Maximum Size Subarray Sum Equals k" href="15658899759390.html">325. Maximum Size Subarray Sum Equals k</a></li>
+                        
+                          <li><a title="31. Next Permutation (Medium)" href="15656954729245.html">31. Next Permutation (Medium)</a></li>
+                        
+                          <li><a title="125. Valid Palindrome" href="15656862451657.html">125. Valid Palindrome</a></li>
+                        
+                          <li><a title="157. Read N Characters Given Read4" href="15656102712396.html">157. Read N Characters Given Read4</a></li>
+                        
+                          <li><a title="67. Add Binary" href="15654586436607.html">67. Add Binary</a></li>
+                        
+                          <li><a title="15. 3Sum" href="15646781376296.html">15. 3Sum</a></li>
+                        
+
+                    
+                  </ul>
+                </nav>
+                </div>
+              </div>
+            </div>
+            <div class="large-9 medium-9 columns">
+
+ <div class="markdown-body">
+<h1>215. Kth Largest Element in an Array</h1>
+
+<p>Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.</p>
+
+<p>Example 1:</p>
+
+<p>Input: [3,2,1,5,6,4] and k = 2<br/>
+Output: 5<br/>
+Example 2:</p>
+
+<p>Input: [3,2,3,1,2,4,5,5,6] and k = 4<br/>
+Output: 4<br/>
+Note: <br/>
+You may assume k is always valid, 1 ≤ k ≤ array&#39;s length.</p>
+
+<h2 id="toc_0">Solution</h2>
+
+<ol>
+<li>heap</li>
+<li>quickSelect
+partition函数：
+    左边为小于等于nums[lo], 右边为大于nums[lo]，防止死循环
+第k大即 nums[nums.length - k]</li>
+<li>Sort
+## Complexity</li>
+<li>O(Nlogk) O(k)</li>
+<li>O(N) O(1)</li>
+<li><p>O(NlogN) O(1)</p>
+
+<h2 id="toc_1">Code</h2>
+
+<pre><code class="language-java">class Solution {
+public int findKthLargest(int[] nums, int k) {
+    PriorityQueue&lt;Integer&gt; heap = new PriorityQueue&lt;&gt;();
+    for(Integer i : nums){
+        if(heap.size() &lt; k) heap.offer(i);
+        else{
+            if(heap.peek() &lt; i){
+                heap.poll();
+                heap.offer(i);
+            }
+        }
+    }
+    return heap.peek();
+}
+}
+</code></pre>
+
+<pre><code class="language-java">class Solution {
+public int findKthLargest(int[] nums, int k) {
+    shuffle(nums);
+    int p = 0;
+    int lo = 0, hi = nums.length - 1;
+    while(lo &lt; hi){
+        p = partition(lo, hi, nums);
+        if(p == nums.length - k) {
+            break;
+        }else if(p &gt; nums.length - k){
+            hi = p - 1;
+        }else{
+            lo = p + 1;
+        }
+    }
+    return nums[nums.length - k];
+}
+public int partition(int lo, int hi, int[] nums){
+    int i = lo + 1;
+    int j = hi;
+    while(true){
+        while( i &lt;= j &amp;&amp; nums[i] &lt;= nums[lo]) i++; 
+        while( i &lt;= j &amp;&amp; nums[j] &gt; nums[lo] ) j--;
+        if(i &gt; j) break;
+
+        swap(nums, i, j);
+    }
+    swap(nums, lo, j);
+    return j;
+}
+
+public void swap(int[] nums, int i , int j){
+    int tmp = nums[i];
+    nums[i] = nums[j];
+    nums[j] = tmp;
+}
+
+public void shuffle(int[] a){
+    Random random = new Random();
+    for(int i = 0; i &lt; a.length; i++){
+        int r = random.nextInt(i + 1);
+        swap(a, i, r);
+    }
+}
+}
+</code></pre></li>
+</ol>
+
+
+</div>
+
+<br /><br />
+<hr />
+
+<div class="row clearfix">
+  <div class="large-6 columns">
+	<div class="text-left" style="padding:15px 0px;">
+		
+	        <a href="15661370980417.html"  title="Previous Post: 244. Shortest Word Distance II">&laquo; 244. Shortest Word Distance II</a>
+	    
+	</div>
+  </div>
+  <div class="large-6 columns">
+	<div class="text-right" style="padding:15px 0px;">
+		
+	        <a href="15661222271473.html" 
+	        title="Next Post: 426. Convert Binary Search Tree to Sorted Doubly Linked List">426. Convert Binary Search Tree to Sorted Doubly Linked List &raquo;</a>
+	    
+	</div>
+  </div>
+</div>
+
+<div class="row">
+<div style="padding:0px 0.93em;" class="share-comments">
+
+</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		var currentURL = '15661227048294.html';
+		$('#side-nav a').each(function(){
+			if($(this).attr('href') == currentURL){
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>  
+</div></div>
+
+
+<div class="page-bottom">
+  <div class="row">
+  <hr />
+  <div class="small-9 columns">
+  <p class="copyright">Copyright &copy; 2015
+Powered by <a target="_blank" href="http://www.mweb.im">MWeb</a>,&nbsp; 
+Theme used <a target="_blank" href="http://github.com">GitHub CSS</a>.</p>
+  </div>
+  <div class="small-3 columns">
+  <p class="copyright text-right"><a href="#header">TOP</a></p>
+  </div>
+   
+  </div>
+</div>
+
+        </section>
+      </div>
+    </div>
+    
+    
+    <script src="asset/js/foundation.min.js"></script>
+    <script src="asset/js/foundation/foundation.offcanvas.js"></script>
+    <script>
+      $(document).foundation();
+
+     
+    </script>
+    
+
+
+  </body>
+</html>
